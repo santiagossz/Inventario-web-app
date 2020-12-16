@@ -1,0 +1,97 @@
+body {
+    background: url("https://images.unsplash.com/photo-1495100497150-fe209c585f50?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=&fit=crop&w=1351&q=80") no-repeat center fixed;
+    background-size: cover;
+}
+
+.recovery-box {
+    width: 400px;
+    height: 425px;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    padding: 70px 30px;
+    border-radius: 5%;
+    position: relative;
+    background: rgba(215, 215, 215, 0.8);
+}
+
+.logo {
+    content: url("https://img.icons8.com/pastel-glyph/100/000000/login-rounded-right.png");
+    width: 85px;
+    height: 85px;
+    position: absolute;
+    top: -45px;
+    left: calc(50% - 45px);
+}
+
+.logo:hover {
+    content: url("https://img.icons8.com/pastel-glyph/100/000000/login-rounded.png");
+}
+
+h2 {
+    padding: 0 0 40px;
+    text-align: center;
+}
+
+.inputs {
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.65);
+    background: transparent;
+    outline: none;
+    height: 40px;
+    text-align: center;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.checkbox {
+    float: left;
+    margin-top: -5%;
+}
+
+.label {
+    font-size: 14px;
+}
+
+.ingresar {
+    margin: 20px 0 30px 0;
+    width: 100%;
+    border: none;
+    outline: none;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.ingresar:hover {
+    background: white;
+}
+
+.recuperar {
+    font-size: 12px;
+    display: block;
+    text-align: center;
+}
+
+#toggle {
+    position: absolute;
+    bottom: 42.5%;
+    right: 10%;
+    cursor: pointer;
+}
+
+#error {
+    padding: 0;
+    margin-top: -22px;
+    margin-bottom: 5px;
+    font-size: 12px;
+    color: rgb(171, 39, 29);
+    text-align: center;
+}

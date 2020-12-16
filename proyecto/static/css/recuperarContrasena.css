@@ -1,0 +1,67 @@
+body {
+	background: url("https://images.unsplash.com/photo-1514910344823-45265a559e88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2129&q=80")
+		no-repeat top fixed;
+	background-size: cover;
+	height: 100vh;
+}
+
+.recovery-box {
+	width: 400px;
+	height: 350px;
+	transform: translate(-50%, 27%);
+	left: 50%;
+	padding: 70px 30px;
+	border-radius: 5%;
+	position: relative;
+	background: rgba(215, 215, 215, 0.8);
+}
+
+.logo {
+	content: url("https://img.icons8.com/metro/1000/000000/lock-2.png");
+	width: 85px;
+	height: 85px;
+	position: absolute;
+	top: -50px;
+	left: calc(50% - 45px);
+}
+
+.logo:hover {
+	content: url("https://img.icons8.com/metro/100/000000/unlock-2.png");
+}
+
+h2 {
+	padding: 0 0 40px;
+	text-align: center;
+}
+
+.inputs {
+	border: none;
+	border-bottom: 1.5px solid rgba(0, 0, 0, 0.5);
+	background: transparent;
+	outline: none;
+	height: 40px;
+	text-align: center;
+	font-size: 16px;
+	width: 100%;
+	margin-bottom: 30px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	transition: background-color 5000s ease-in-out 0s;
+}
+
+.boton {
+	border: none;
+	outline: none;
+	height: 40px;
+	font-size: 16px;
+	border-radius: 10px;
+	width: 100%;
+}
+
+.boton:hover {
+	background: white;
+}
