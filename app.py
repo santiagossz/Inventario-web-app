@@ -1,15 +1,81 @@
 # app.py
 
-from proyecto import app, db
-from proyecto.tablas import Usuario, Producto, datos_producto, datos_acceso
+# from proyecto import app, db
+# from proyecto.tablas import Usuario, Producto, datos_producto, datos_acceso
 import os,random,string
-from flask import render_template, request, flash, redirect, url_for,session
+from flask import Flask,render_template, request, flash, redirect, url_for,session
+from flask_sqlalchemy import SQLAlchemy
 import yagmail as yagmail
-from flask_login import login_user, login_required, logout_user
+from flask_login import LoginManager,login_user, login_required, logout_user,UserMixin
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
+import sqlite3
 
 
+login_manager = LoginManager()
+
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'E0^zF_o{J*+GH&BYM}_3]D65h@WUV7TV=l0=1Y`vPSwYX+`{.U7+8#9;wS^T2V@F'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/cafeteria.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
+#iniciar pág de loggeo
+login_manager.init_app(app)
+login_manager.login_view = 'inicio'
+
+#database
+db = SQLAlchemy(app)
+
+
+
+# Tablas en la base de datos
+class Usuario(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    tipo = db.Column(db.Boolean)
+    nombre = db.Column(db.VARCHAR(200))
+    correo = db.Column(db.VARCHAR(200))
+    contrasena = db.Column(db.VARCHAR(200))
+    estado = db.Column(db.Boolean)
+
+class Producto(db.Model):
+    referencia = db.Column(db.VARCHAR, primary_key=True)
+    nombre = db.Column(db.VARCHAR(200))
+    cantidad = db.Column(db.Integer)
+    valor = db.Column(db.Integer)
+    imagen = db.Column(db.VARCHAR(200))
+
+
+class Ventas(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    usuario = db.Column(db.Integer)
+    referencia = db.Column(db.Integer)
+    fecha = db.Column(db.VARCHAR(200))
+    cantidad = db.Column(db.Integer)
+
+@login_manager.user_loader
+def load_user(id):
+    return Usuario.query.get(id)
+# función para acceder a los datos del producto
+def datos_producto():
+    connection = sqlite3.connect("database/cafeteria.db")
+    cursor = connection.cursor()
+    referencia = [referencia[0] for referencia in cursor.execute("SELECT referencia FROM producto")]
+    nombre = [nombre[0] for nombre in cursor.execute("SELECT nombre FROM producto")]
+    cantidad = [cantidad[0] for cantidad in cursor.execute("SELECT cantidad FROM producto")]
+    valor = [valor[0] for valor in cursor.execute("SELECT valor FROM producto")]
+    imagenes = [imagen[0] for imagen in cursor.execute("SELECT imagen FROM producto")]
+    return referencia, nombre, cantidad, valor, imagenes
+
+
+# función para acceder a los datos de inicio de sesión
+def datos_acceso():
+    connection = sqlite3.connect("database/cafeteria.db")
+    cursor = connection.cursor()
+    correo = [correo[0] for correo in cursor.execute("SELECT correo FROM usuario")]
+    contrasena = [contrasena[0] for contrasena in cursor.execute("SELECT contrasena FROM usuario")]
+    return correo, contrasena
 
 
 # ruta inicio sesión
@@ -122,7 +188,7 @@ def crearProducto():
         img = request.files.get('imagen')
         filename = secure_filename(img.filename)
         # guardar imagenes en la ruta static/img
-        img.save(os.path.join("proyecto/static/img", filename))
+        img.save(os.path.join("static/img", filename))
         ruta = "../static/img/" + filename
         producto = Producto(referencia=request.form['referencia'], nombre=request.form['nombre'],
                             cantidad=request.form['cantidad'],
@@ -159,7 +225,7 @@ def actualizarProducto():
             ruta = request.form['noImagen']
         elif img.filename:
             filename = secure_filename(img.filename)
-            img.save(os.path.join("proyecto/static/img", filename))
+            img.save(os.path.join("static/img", filename))
             ruta = '../static/img/' + filename;
         producto.imagen=ruta
         db.session.add(producto)

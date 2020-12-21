@@ -45,9 +45,10 @@ const infoImagen = (elemento) => {
 //verificar cantidades válidad para vender
 
 const actualizarVentas = (nombre) =>{
+    const cantidad = document.getElementById('ventas').value
     if(parseInt(document.getElementById('cantidadDisponibles').innerHTML)-
-        parseInt(document.getElementById('ventas').value)>=0){
-        alert('Cantidades vendidas de '+nombre+' fueron registradas satisfactoriamente')
+        parseInt(cantidad)>=0){
+        alert('Se registraron satisfactoriamente '+cantidad+' cantidades vendidas de '+nombre)
         return true
     }
     else {
