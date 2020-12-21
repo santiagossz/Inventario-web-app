@@ -161,14 +161,6 @@ def registro():
 def productos():
     (referencia, nombre, cantidad, valor, imagenes) = datos_producto()
 
-    # Eliminar producto
-    if request.method == 'POST' and 'eliminar' in request.form:
-        return render_template('productos.html', imagenes=imagenes, referencias=referencia, nombre=nombre,
-                               cantidad=cantidad, valor=valor)
-    # Ventas del producto por el empelado/ vueve a pag productos de empleado
-    elif request.method == 'POST' and 'cantidades' in request.form:
-        return render_template('productosEmpleado.html', imagenes=imagenes)
-
     return render_template('productos.html', imagenes=imagenes, referencias=referencia, nombre=nombre,
                            cantidad=cantidad, valor=valor)
 
