@@ -120,14 +120,16 @@ def recuperarContrasena():
         correo = request.form['correoRecuperar']
         contrasena_encriptada = generate_password_hash(nueva)
         usuario = Usuario.query.filter_by(correo=correo).first()
-        usuario.contrasena = contrasena_encriptada
-        db.session.add(usuario)
-        db.session.commit()
-        yag = yagmail.SMTP(user='inventario.lacafeteria@gmail.com', password='Grupof2020')
-        yag.send(to=correo, subject='Recuperar contraseña', contents='<p>Estimado '+usuario.nombre+','+'</p>'
-                                                                     '<h4>Su nueva contraseña es: '+ nueva +'</h4>'
-                                                                     '<p> Para iniciar sesión haga click en el siguiente link:</p>'                                       
-                                                                     '<p><a href="http://127.0.0.1:5000/">La Cafetería</a></p>')
+        if usuario:
+            print(usuario.nombre)
+            usuario.contrasena = contrasena_encriptada
+            db.session.add(usuario)
+            db.session.commit()
+            yag = yagmail.SMTP(user='inventario.lacafeteria@gmail.com', password='Grupof2020')
+            yag.send(to=correo, subject='Recuperar contraseña', contents='<p>Estimado '+usuario.nombre+','+'</p>'
+                                                                         '<h4>Su nueva contraseña es: '+ nueva +'</h4>'
+                                                                         '<p> Para iniciar sesión haga click en el siguiente link:</p>'                                       
+                                                                         '<p><a href="http://127.0.0.1:5000/">La Cafetería</a></p>')
         return redirect(url_for("inicio"))
     return render_template("recuperarContrasena.html")
 
