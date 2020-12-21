@@ -4,12 +4,13 @@
 # from proyecto.tablas import Usuario, Producto, datos_producto, datos_acceso
 import os,random,string
 from flask import Flask,render_template, request, flash, redirect, url_for,session
-from flask_sqlalchemy import SQLAlchemy
 import yagmail as yagmail
 from flask_login import LoginManager,login_user, login_required, logout_user,UserMixin
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
+from flask_sqlalchemy import SQLAlchemy
+
 
 
 login_manager = LoginManager()
