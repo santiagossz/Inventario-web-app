@@ -46,10 +46,7 @@ h2 {
 	margin-bottom: 30px;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
+input:-webkit-autofill{
 	transition: background-color 5000s ease-in-out 0s;
 }
 

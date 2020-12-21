@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Registro Usuario </title>
+    <title>Nuevo Usuario</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/registro.css') }}">
     <script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
 
@@ -12,6 +12,7 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <!-- iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
 
 </head>
 
@@ -55,7 +56,7 @@
         </div>
 
         <!-- Registrar -->
-        <input class="registrar" id="registrar" type="submit" value="Registrar">
+        <input class="btn btn-dark registrar" id="registrar" type="submit" value="Registrar">
 
     </form>
 </div>

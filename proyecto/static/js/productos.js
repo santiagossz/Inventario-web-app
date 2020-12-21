@@ -16,12 +16,12 @@ enlaces.forEach((boton) => {
         });
         boton.classList.add("bg-dark");
         //filtrar
-        const categoria = evento.target.innerHTML.toLowerCase();
+        const categoria = evento.target.id;
         categoria === "todos"
             ? grid.filter("[data-categoria]")
-            :   grid.filter((producto) => {
-        return producto.getElement().dataset.categoria.includes(categoria);
-    });
+            : grid.filter((producto) => {
+                return producto.getElement().dataset.categoria.includes(categoria);
+            });
     };
 });
 
@@ -35,44 +35,32 @@ const filtrar = (elemento) => {
 };
 
 
-//Mostrar productos
+//mostrar info de la imagen
+const infoImagen = (elemento) => {
+    nombreRuta = elemento.value;
+    nombreImagen = nombreRuta.substr(nombreRuta.indexOf("h") + 2)
+    document.getElementById("escogerImagen-label").innerHTML = nombreImagen
+}
 
-const overlay = document.getElementById("overlay");
-const imgs = document.querySelectorAll("#grid img")
+//verificar cantidades válidad para vender
 
-imgs.forEach((elemento) => {
-    const ruta = elemento.getAttribute("src");
-    elemento.onclick = ((evento) => {
-        overlay.classList.add("mostrar");
-        overlay.querySelector("img").setAttribute("src", `${ruta}`);
-    });
-});
-//cerrar con el boton
-const cerrar = () => {
-    overlay.classList.remove("mostrar")
-};
-//cerrar desde el overlay
-// overlay.onclick = (evento) => {
-// 	evento.target.id === "overlay" ? overlay.classList.remove("mostrar") :
-// 		"";
-// };
+const actualizarVentas = (nombre) =>{
+    if(parseInt(document.getElementById('cantidadDisponibles').innerHTML)-
+        parseInt(document.getElementById('ventas').value)>=0){
+        alert('Cantidades vendidas de '+nombre+' fueron registradas satisfactoriamente')
+        return true
+    }
+    else {
+        alert('No hay suficiente disponibiliad de '+nombre )
+        document.getElementById('ventas').value=""
+        return false
+    }
+}
 
 
-//alerta eliminar
-const alertaEliminar = () => {
-    alert("Producto de referencia # eliminado");
-    overlay.classList.remove("mostrar");
-
-};
 
 // Omitir el mensaje de Confirm FOrm Resubmission... validar este punto
 if (window.history.replaceState) {
     window.history.replaceState(null, null, window.location.href);
 }
-
-//Jquery para mostrar las imagenes de la base de datos
-
-// window.onload=(function() {
-//     document.getElementById("img1").src='../SantiagoS-CV_1.pdf';
-// });
 

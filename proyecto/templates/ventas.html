@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventario</title>
+    <title>Venta de Producto</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/productos.css') }}">
 
@@ -23,7 +23,7 @@
 
 <!-- Barra Principal -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <h1><span><a class="navbar-brand" href="{{ url_for('productos') }}">La Cafetería</a></span></h1>
+    <h1><span><a class="navbar-brand">La Cafetería</a></span></h1>
 
     <form class="form-inline mr-auto" onsubmit="return false">
         <div class="input-group">
@@ -39,9 +39,7 @@
 
     <div class="collapse navbar-collapse " id="navbarNav">
         <ul class="navbar-nav ml-auto">
-            <a class="nav-link" href="{{ url_for('crearProducto') }}">Nuevo Producto</a>
-            <a class="nav-link" href="{{ url_for('registro') }}">Nuevo Usuario</a>
-            <a class="nav-link" href="{{ url_for('cerrarSesion') }}">Cerrar Sesión</a>
+            <a class="nav-link">Cerrar Sesión</a>
         </ul>
     </div>
 
@@ -50,11 +48,11 @@
 
 <div class="container " id="filtros">
     <br>
-    <a href="#" class="btn btn-secondary btn-icon-split bg-dark" id="todos">Todos</a>
-    <a href="#" class="btn btn-secondary btn-icon-split " id="c">Café</a>
-    <a href="#" class="btn btn-secondary btn-icon-split" id="e">Especiales</a>
-    <a href="#" class="btn btn-secondary btn-icon-split" id="p">Panadería</a>
-    <a href="#" class="btn btn-secondary btn-icon-split" id="s">Sandwiches</a>
+    <a href="#" class="btn btn-secondary btn-icon-split bg-dark ">Todos</a>
+    <a href="#" class="btn btn-secondary btn-icon-split ">Café</a>
+    <a href="#" class="btn btn-secondary btn-icon-split">Frappuccino</a>
+    <a href="#" class="btn btn-secondary btn-icon-split">Panadería</a>
+    <a href="#" class="btn btn-secondary btn-icon-split">Sandwiches</a>
     <hr>
 </div>
 <br>
@@ -62,46 +60,65 @@
 <div class="container">
 
     <!-- Grid de imagenes -->
-    <section class="grid" id="grid">
-        <!--        <form method="POST" action="{{ url_for('actualizarProducto') }}">-->
-
+    <section class="grid" id="grid1">
         {% if referencias %}
         {% for i in range(imagenes | length) %}
 
         <div class="item" data-categoria="{{ referencias[i] | lower }}"
              data-etiquetas="{{ referencias[i] | lower }}{{ nombre[i] | lower }}"
              data-descripcion="1.- Lorem ipsum dolor sit amet consectetur.">
-            <form method="POST" action="{{ url_for('actualizarProducto') }}">
-                <div class="item-contenido">
+            <div class="item-contenido">
+                <input type="image" src="{{ imagenes[i] }}" alt="Submit Form" class="imagenProd" id={{i-1}}/>
 
-
-                    <input type="image" src="{{ imagenes[i] }}" alt="Submit Form" class="imagenProd" id={{i-1}}/>
-
-                    <div class="datoProductoMiniatura">
-                        <p>{{ nombre[i] }}</p>
-                        <p id="cantidadesDisponibles">Cantidades disponibles: <br>
-                            <i style="font-size: small;">{{ cantidad[i] }}</i>
-                        </p>
-                    </div>
-
-                    <input type="hidden" class="oculto" name="imagenProd" value="{{ imagenes[i]}}"
-                           id="imagenProd">
-                    <input type="hidden" class="oculto" name="referenciaProd" value="{{ referencias[i]}}"
-                           id="referenciaProd">
-                    <input type="hidden" class="oculto" name="nombreProd" value="{{ nombre[i]}}" id="nombreProd">
-                    <input type="hidden" class="oculto" name="cantidadProd" value="{{ cantidad[i]}}" id="cantidadProd">
-                    <input type="hidden" class="oculto" name="valorProd" value="{{ valor[i]}}" id="valorProd">
-
+                <div class="datoProductoMiniatura">
+                    <p>{{ nombre[i] }}</p>
+                    <p id="cantidadesDisponibles">Cantidades disponibles: <br>
+                        <i style="font-size: small;">{{ cantidad[i] }}</i>
+                    </p>
                 </div>
-            </form>
+            </div>
         </div>
 
         {% endfor %}
         {% endif %}
 
-
     </section>
 
+    <!-- Overlay de imagen -->
+    <section class="overlay" id="overlay">
+        <div class="contenedor-img">
+            <img src="{{imagenVentas}}" alt="">
+            <div class="datoProducto">
+                <h4 id="cod">Código de Referencia: <br> {{referenciaVentas}}</h4><br>
+                <input type="hidden" name="referenciaActualizar" value="{{referenciaActualizar}}">
+                <p class="ventas">{{nombreVentas}} </p>
+                <p class="ventas">Cantidades Disponibles: <span id="cantidadDisponibles">{{cantidadVentas}}</span></p>
+                <p class="ventas">Precio: ${{valorVentas}}</p><br>
+                <p class="label">Cantidades Vendidas</p>
+
+
+                {% set empleado = session['nombre'] %}
+                <a id="boton-cerrar" href="{{url_for('productosEmpleado',empleado=empleado)}}"><i
+                        class="fas fa-times"></i></a>
+
+                {% set empleado = session['nombre'] %}
+                <form method="POST" action="{{url_for('ventas',empleado=empleado)}}"
+                      onsubmit="return actualizarVentas('{{nombreVentas}}');">
+
+                    <input type="number" min="0" step="1" class="inputs" required
+                           name="ventas" value="" id="ventas">
+                    <input type="hidden" name="referenciaVentas" value="{{referenciaVentas}}"><br><br>
+                    <button type="submit" class="btn btn-dark boton">Registrar Ventas</button>
+
+
+                </form>
+            </div>
+            <button class="btn btn-dark bt" style="margin-top: 35.5px"></button>
+
+        </div>
+
+
+    </section>
 </div>
 
 <!-- Jquery/Bootstrap js para el menu hamburgesa navbar-->

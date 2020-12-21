@@ -8,7 +8,7 @@ body {
 	width: 400px;
 	height: 440px;
 	left: 50%;
-	transform: translate(-50%, 20%);
+	transform: translate(-50%, 17.5%);
 	padding: 60px 30px;
 	border-radius: 5%;
 	position: relative;
@@ -49,11 +49,13 @@ h2 {
 	padding-left: 17px;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
+input:-webkit-autofill{
 	transition: background-color 5000s ease-in-out 0s;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .crear {
@@ -70,7 +72,6 @@ input:-webkit-autofill:active {
 	background: white;
 }
 .custom-file-input ~ .custom-file-label::after {
-	content: "Elegir";
 	display: none;
 }
 
@@ -78,5 +79,7 @@ input:-webkit-autofill:active {
 	margin-top: 10px;
 	text-align: center;
 	font-size: 14px;
-	color: white !important;
+    color: black !important;
+	border: none !important;
+     background: rgba(190, 190, 190, 0.8) !important;
 }

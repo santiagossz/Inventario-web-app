@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Principal</title>
+    <title>Inventario</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/productos.css') }}">
 
@@ -13,6 +13,7 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <!--iconos -->
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js"></script>
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
 
     <!-- Muuri/Filtros -->
     <script src="https://cdn.jsdelivr.net/npm/web-animations-js@2.3.2/web-animations.min.js"></script>
@@ -23,7 +24,9 @@
 <body>
 <!-- Barra Principal -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <h1><span><a class="navbar-brand" href="{{ url_for("productosEmpleado") }}">La Cafetería</a></span></h1>
+    {% set empleado = session['nombre'] %}
+    <h1><span><a class="navbar-brand" href="{{url_for('productosEmpleado',empleado=empleado)}}">La Cafetería</a></span>
+    </h1>
 
     <form class="form-inline mr-auto" onsubmit="return false">
         <div class="input-group">
@@ -39,18 +42,18 @@
 
     <div class="collapse navbar-collapse " id="navbarNav">
         <ul class="navbar-nav ml-auto">
-            <a class="nav-link" href="{{ url_for("cerrarSesion") }}">Cerrar Sesión</a>
+            <a class="nav-link" href="{{ url_for('cerrarSesion') }}">Cerrar Sesión</a>
         </ul>
     </div>
 
 </nav>
 <div class="container " id="filtros">
     <br>
-    <a href="#" class="btn btn-secondary btn-icon-split bg-dark ">Todos</a>
-    <a href="#" class="btn btn-secondary btn-icon-split ">Café</a>
-    <a href="#" class="btn btn-secondary btn-icon-split">Frappuccino</a>
-    <a href="#" class="btn btn-secondary btn-icon-split">Panadería</a>
-    <a href="#" class="btn btn-secondary btn-icon-split">Sandwiches</a>
+    <a href="#" class="btn btn-secondary btn-icon-split bg-dark" id="todos">Todos</a>
+    <a href="#" class="btn btn-secondary btn-icon-split " id="c">Café</a>
+    <a href="#" class="btn btn-secondary btn-icon-split" id="e">Especiales</a>
+    <a href="#" class="btn btn-secondary btn-icon-split" id="p">Panadería</a>
+    <a href="#" class="btn btn-secondary btn-icon-split" id="s">Sandwiches</a>
     <hr>
 </div>
 <br>
@@ -59,65 +62,43 @@
 
     <!-- Grid de imagenes -->
     <section class="grid" id="grid">
+        <!--        <form method="POST" action="{{ url_for('actualizarProducto') }}">-->
+
         {% if referencias %}
-            {% for i in range(imagenes | length) %}
+        {% for i in range(imagenes | length) %}
 
-                <div class="item" data-categoria="{{ referencias[i] | lower }}"
-                     data-etiquetas="{{ referencias[i] | lower }}{{ nombre[i] | lower }}"
-                     data-descripcion="1.- Lorem ipsum dolor sit amet consectetur.">
-                    <div class="item-contenido">
-                        <img
-                                src="{{ imagenes[i] }}"
-                                alt="">
-                        <div class="contenido">
-                            <p>{{ nombre[i] }}</p>
-                            <p id="disponibles">Cantidades disponibles: <br>
-                                <i style="font-size: small;">{{ cantidad[i] }}</i>
-                            </p>
-                        </div>
-                        <form method="POST" action="{{ url_for("actualizarProducto") }}">
-                            <input type="hidden" class="oculto" name="referenciaProd" value="{{ referencias[i] }}">
-                            <input type="hidden" class="oculto" name="nombreProd">
-                            <input type="hidden" class="oculto" name="cantidadProd">
-                            <input type="hidden" class="oculto" name="valorProd">
-                        </form>
+        <div class="item" data-categoria="{{ referencias[i] | lower }}"
+             data-etiquetas="{{ referencias[i] | lower }}{{ nombre[i] | lower }}"
+             data-descripcion="1.- Lorem ipsum dolor sit amet consectetur.">
+            {% set empleado = session['nombre'] %}
+            <form method="POST" action="{{ url_for('ventas', empleado=empleado) }}">
+                <div class="item-contenido">
+
+
+                    <input type="image" src="{{ imagenes[i] }}" alt="Submit Form" class="imagenProd" id={{i-1}}/>
+
+                    <div class="datoProductoMiniatura">
+                        <p>{{ nombre[i] }}</p>
+                        <p id="cantidadesDisponibles">Cantidades disponibles: <br>
+                            <i style="font-size: small;">{{ cantidad[i] }}</i>
+                        </p>
                     </div>
+
+                    <input type="hidden" class="oculto" name="imagenProd" value="{{ imagenes[i]}}"
+                           id="imagenProd">
+                    <input type="hidden" class="oculto" name="referenciaProd" value="{{ referencias[i]}}"
+                           id="referenciaProd">
+                    <input type="hidden" class="oculto" name="nombreProd" value="{{ nombre[i]}}" id="nombreProd">
+                    <input type="hidden" class="oculto" name="cantidadProd" value="{{ cantidad[i]}}" id="cantidadProd">
+                    <input type="hidden" class="oculto" name="valorProd" value="{{ valor[i]}}" id="valorProd">
                 </div>
-
-            {% endfor %}
-        {% endif %}
-
-    </section>
-
-    <!-- Overlay de imagen -->
-    <section class="overlay" id="overlay">
-
-        <div class="contenedor-img">
-            <img alt="">
-            <div class="contenido1">
-                <h6>Referencia</h6>
-                <ul>
-                    <li>Nombre</li>
-                    <li>Cantidades Disponibles</li>
-                    <li>Valor</li>
-                </ul>
-            </div>
-
-            <button id="boton-cerrar" onclick="cerrar();"><i class="fas fa-times"></i></button>
-
-            <form method="POST" action="{{ url_for("productosEmpleado") }}"
-                  onsubmit="alert('Cantidades actualizadas satisfactoriamente')">
-
-                <!-- Ventas?-->
-                <button type="submit" class="btn btn-dark boton" id="actualizarEmpleado">
-                    Ventas
-                </button>
-                <span class="btn btn-dark" id="actualizar"><input type="number" min="0" step="1" class="inputs" required
-                                                                  id="cantidades" name="cantidades"></span>
-
             </form>
 
         </div>
+
+        {% endfor %}
+        {% endif %}
+
 
     </section>
 </div>

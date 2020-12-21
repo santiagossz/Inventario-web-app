@@ -1,10 +1,11 @@
-#tablas.py
+# tablas.py
 import sqlite3
 
-from proyecto import db,login_manager
+from proyecto import db, app,login_manager
 from flask_login import UserMixin
 
-#acceder al id del usuario
+
+# acceder al id del usuario
 @login_manager.user_loader
 def load_user(id):
     return Usuario.query.get(id)
@@ -17,7 +18,6 @@ class Usuario(db.Model, UserMixin):
     correo = db.Column(db.VARCHAR(200))
     contrasena = db.Column(db.VARCHAR(200))
     estado = db.Column(db.Boolean)
-
 
 class Producto(db.Model):
     referencia = db.Column(db.VARCHAR, primary_key=True)
@@ -43,8 +43,8 @@ def datos_producto():
     nombre = [nombre[0] for nombre in cursor.execute("SELECT nombre FROM producto")]
     cantidad = [cantidad[0] for cantidad in cursor.execute("SELECT cantidad FROM producto")]
     valor = [valor[0] for valor in cursor.execute("SELECT valor FROM producto")]
-    imagenes =[imagen[0] for imagen in cursor.execute("SELECT imagen FROM producto")]
-    return referencia, nombre, cantidad, valor,imagenes
+    imagenes = [imagen[0] for imagen in cursor.execute("SELECT imagen FROM producto")]
+    return referencia, nombre, cantidad, valor, imagenes
 
 
 # función para acceder a los datos de inicio de sesión
@@ -54,3 +54,7 @@ def datos_acceso():
     correo = [correo[0] for correo in cursor.execute("SELECT correo FROM usuario")]
     contrasena = [contrasena[0] for contrasena in cursor.execute("SELECT contrasena FROM usuario")]
     return correo, contrasena
+
+
+
+

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>La Cafetería</title>
+    <title>Recuperar Contraseña</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/recuperarContrasena.css') }}">
     <script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
 
@@ -12,13 +12,14 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <!-- iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
 
 </head>
 
 <body>
 <!-- Barra Principal -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{{ url_for("inicio") }}">La Cafetería</a>
+    <a class="navbar-brand" href="{{ url_for('inicio') }}">La Cafetería</a>
 </nav>
 
 <!-- Caja de Inicio -->
@@ -31,7 +32,7 @@
         <input class="inputs" id="correoRecuperar" name="correoRecuperar" type="text" placeholder="Ingrese su correo electronico" required>
 
         <!-- Recuperar -->
-        <input class="boton" type="submit" value="Recuperar">
+        <input class="btn btn-dark  boton" type="submit" value="Recuperar">
     </form>
 </div>
 </body>

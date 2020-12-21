@@ -1,18 +1,23 @@
 body {
-    background: url("https://images.unsplash.com/photo-1495100497150-fe209c585f50?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=&fit=crop&w=1351&q=80") no-repeat center fixed;
+    /*background: url("https://images.unsplash.com/photo-1495100497150-fe209c585f50?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=&fit=crop&w=1351&q=80") no-repeat center fixed;*/
+	background: url("https://images.unsplash.com/photo-1541689588306-8847082e1c1c?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=659&q=80")
+		no-repeat center fixed;
     background-size: cover;
 }
 
 .recovery-box {
     width: 400px;
-    height: 425px;
+    height: 412.5px;
     left: 50%;
     transform: translate(-50%, 20%);
     padding: 70px 30px;
     border-radius: 5%;
     position: relative;
     background: rgba(215, 215, 215, 0.8);
+    /*background: rgba(190, 190, 190, 0.8)*/
+
 }
+
 
 .logo {
     content: url("https://img.icons8.com/pastel-glyph/100/000000/login-rounded-right.png");
@@ -32,6 +37,7 @@ h2 {
     text-align: center;
 }
 
+
 .inputs {
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.65);
@@ -44,24 +50,17 @@ h2 {
     margin-bottom: 20px;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
+input:-webkit-autofill {
     transition: background-color 5000s ease-in-out 0s;
 }
 
-.checkbox {
-    float: left;
-    margin-top: -5%;
-}
 
 .label {
     font-size: 14px;
 }
 
 .ingresar {
-    margin: 20px 0 30px 0;
+    margin: 10px 0 30px 0;
     width: 100%;
     border: none;
     outline: none;
@@ -70,14 +69,19 @@ input:-webkit-autofill:active {
     border-radius: 10px;
 }
 
-.ingresar:hover {
-    background: white;
-}
+
 
 .recuperar {
     font-size: 12px;
     display: block;
     text-align: center;
+    color:rgb(41, 43, 44);
+    font-weight: bolder;
+}
+
+
+.recuperar:hover {
+    color: white;
 }
 
 #toggle {
